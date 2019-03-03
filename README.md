@@ -42,7 +42,7 @@ I assumed new pending invoices could appear in any moment.
 ## Remarks
 This solution doesn't work with SQLite correctly because:
 1. SQLite doesn't support `SELECT ... FOR UPDATE`
-2. `org.sqlite.SQLiteException: [SQLITE_BUSY]  The database file is locked (database is locked)` - probably caused by multiple connections.
+2. `org.sqlite.SQLiteException: [SQLITE_BUSY]  The database file is locked (database is locked)` is thrown - probably caused by multiple connections.
 
 ## Alternative approach
 
