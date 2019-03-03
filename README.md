@@ -44,6 +44,8 @@ This solution doesn't work with SQLite correctly because:
 1. SQLite doesn't support `SELECT ... FOR UPDATE`
 2. `org.sqlite.SQLiteException: [SQLITE_BUSY]  The database file is locked (database is locked)` is thrown - probably caused by multiple connections.
 
+I prepared [sqlite branch](https://github.com/jbibro/antaeus/tree/sqlite) where all database operations are run on the same thread.  
+
 ## Alternative approach
 
 * I think that billing service should be separate service. It runs only once per month but consumes resources all the time.
