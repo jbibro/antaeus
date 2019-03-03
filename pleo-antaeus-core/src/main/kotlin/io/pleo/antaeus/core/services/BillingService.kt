@@ -30,6 +30,7 @@ class BillingService(
             .limitRate(200, 0)
             .flatMap({ invoice ->
                 charge(invoice)
+                    .publishOn(Schedulers.single())
                     .doOnNext { newStatus -> dal.updateStatus(newStatus = newStatus, invoiceId = invoice.id) }
                     .doOnError { logger.error("Unable to charge invoice $invoice.", it) }
                     .map { invoice.copy(status = it) }
@@ -55,7 +56,7 @@ class BillingService(
                 }
             }
         }
-            .subscribeOn(Schedulers.elastic())
+            .subscribeOn(Schedulers.single())
 
     private fun charge(invoice: Invoice) =
         Mono
