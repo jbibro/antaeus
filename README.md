@@ -39,6 +39,11 @@ while `flatMap` enables concurrency (number of subscriptions limited to 50 at th
 I run invoice processing tasks one by one with 10 minutes delays if it's 1st day of a month. I don't know the exact requirements and 
 I assumed new pending invoices could appear in any moment.
 
+## Remarks
+This solution doesn't work with SQLite correctly because:
+1. SQLite doesn't support `SELECT ... FOR UPDATE`
+2. `org.sqlite.SQLiteException: [SQLITE_BUSY]  The database file is locked (database is locked)` - probably caused by multiple connections.
+
 ## Alternative approach
 
 * I think that billing service should be separate service. It runs only once per month but consumes resources all the time.
