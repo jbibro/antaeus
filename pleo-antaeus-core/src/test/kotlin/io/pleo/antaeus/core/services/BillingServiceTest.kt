@@ -59,7 +59,6 @@ class BillingServiceTest {
         every { dal.fetchInvoicesAndChangeStatus(PENDING, IN_PROGRESS, any()) } returns emptyList()
 
         // and payment provider returns true
-        val paymentProvider = mockk<PaymentProvider>()
         every { paymentProvider.charge(any()) } returns true
 
         // then
@@ -79,7 +78,6 @@ class BillingServiceTest {
         every { dal.fetchInvoicesAndChangeStatus(PENDING, IN_PROGRESS, any()) } returns listOf(invoice())
 
         // and payment provider returns false
-        val paymentProvider = mockk<PaymentProvider>()
         every { paymentProvider.charge(any()) } returns false
 
         // then
@@ -101,7 +99,6 @@ class BillingServiceTest {
         every { dal.fetchInvoicesAndChangeStatus(PENDING, IN_PROGRESS, any()) } returns listOf(invoice())
 
         // and payment provider returns network exception
-        val paymentProvider = mockk<PaymentProvider>()
         every { paymentProvider.charge(any()) } throws NetworkException()
 
         // then
