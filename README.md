@@ -33,7 +33,7 @@ I assumed our external payment provider request is idempotent so it's safe to ca
 Otherwise, they would have provided `status` method or something similar.
 Finally, I connected both parts in `chargeAll` method. It's worth mentioning `limitRate` operator 
 that controls the number of rows fetched by pending invoices publisher 
-while `flatMap` enables concurrency (number of subscriptions limited to 50 at the same time).
+while `flatMap` enables concurrency (number of concurrent `charge` processes limited to 50 not to bring down the external payment service).
 
 ### Scheduling 
 I run invoice processing tasks one by one with 10 minutes delays if it's 1st day of a month. I don't know the exact requirements and 
