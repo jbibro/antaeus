@@ -45,14 +45,8 @@ class BillingService(
                     newStatus = IN_PROGRESS,
                     limit = n.toInt()
                 )
-                when (invoices.size) {
-                    0 -> sink.complete()
-                    else -> {
-                        invoices.forEach { sink.next(it) }
-                        if (invoices.size < n) sink.complete()
-                    }
-
-                }
+                invoices.forEach { sink.next(it) }
+                if (invoices.size < n) sink.complete()
             }
         }
             .subscribeOn(Schedulers.elastic())
